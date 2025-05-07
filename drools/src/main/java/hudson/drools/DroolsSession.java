@@ -1,7 +1,6 @@
 package hudson.drools;
 
 import hudson.security.ACL;
-import hudson.util.IOException2;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -43,7 +42,7 @@ import org.drools.runtime.StatefulKnowledgeSession;
 public class DroolsSession {
 
 	private static Logger LOGGER = Logger.getLogger(DroolsSession.class.getName());
-	
+
 	private final StatefulKnowledgeSession session;
 	private final KnowledgeBase kbase;
 	private final Marshaller marshaller;
@@ -108,10 +107,10 @@ public class DroolsSession {
 				is = new FileInputStream(saved);
 				session = marshaller.unmarshall(is, conf, env);
 			} catch (ClassNotFoundException e) {
-				throw new IOException2("Class not found while unmarshalling "
+				throw new IOException("Class not found while unmarshalling "
 						+ saved.getAbsolutePath(), e);
 			} catch (IOException e) {
-				throw new IOException2("Error while unmarshalling "
+				throw new IOException("Error while unmarshalling "
 						+ saved.getAbsolutePath(), e);
 			} finally {
 				is.close();

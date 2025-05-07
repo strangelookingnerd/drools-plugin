@@ -28,7 +28,6 @@ import org.acegisecurity.AccessDeniedException;
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
-import org.kohsuke.stapler.framework.io.IOException2;
 
 public class HumanTask extends AbstractModelObject implements AccessControlled {
 
@@ -85,17 +84,17 @@ public class HumanTask extends AbstractModelObject implements AccessControlled {
 						((BooleanParameterValue) value).value);
 			}
 		}
-		
+
 		PrintWriter log = run.getLogWriter();
 		log.println("HumanTask " + displayName + " #" + workItemId + " submitted.");
 		log.println("\tUser: " + Hudson.getAuthentication().getName());
 		log.println("\tResults: " + results);
-		
+
 		try {
 			run.getParent().run(
 					new CompleteWorkItemCallable(workItemId, results));
 		} catch (Exception e) {
-			throw new IOException2("Error while completing human task #"
+			throw new IOException("Error while completing human task #"
 					+ workItemId, e);
 		}
 
